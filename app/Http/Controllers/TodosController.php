@@ -19,13 +19,7 @@ class TodosController extends Controller
 
     public function store(CreateTodoRequest $request)
     {
-        return Todo::create([
-            'user_id'=>auth()->user()->id,
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'priority'=>$request->priority,
-            'completed'=>$request->completed
-        ]);
+        return Todo::create(array_merge($request->all(), ['user_id'=>auth()->user()->id]));
     }
 
     public function show($id)

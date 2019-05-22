@@ -27,7 +27,6 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 
-
 $factory->define(Todo::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence(3),    
