@@ -27,10 +27,12 @@ class TodosController extends Controller
         return Todo::findOrFail($id);
     }
 
-    public function update(Request $request, $id)
+    public function update(CreateTodoRequest $request, $id)
     {
         $todo = Todo::findOrFail($id);
-        return $todo->update($request->all());
+        $todo->update($request->all());
+
+        return $todo;
     }
     
     public function destroy($id)
