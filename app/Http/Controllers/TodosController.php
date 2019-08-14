@@ -12,8 +12,12 @@ class TodosController extends Controller
         $this->middleware('auth:api');
     }
     
-    public function index()
+    public function index(Request $request)
     {
+        $completed = $request->input('completed');
+        if ($completed === "1" || $completed === "0"){
+            return Todo::where(['user_id'=>auth()->user()->id, 'completed' => (boolean)$completed])->get();
+        }
         return Todo::where(['user_id'=>auth()->user()->id])->get();
     }
 

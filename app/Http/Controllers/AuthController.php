@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
-use App\Http\Requests\LoginRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\RegisterFormRequest;
 
 class AuthController extends Controller
@@ -20,11 +20,11 @@ class AuthController extends Controller
         return User::create(array_merge($request->all(), ['password' => bcrypt($request->password)]));
     }
 
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
         $credentials = $request->only(['email', 'password']);
         if (!$token=auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Bad credentials'], 401);
         }
         return $this->respondWithToken($token);
     }
